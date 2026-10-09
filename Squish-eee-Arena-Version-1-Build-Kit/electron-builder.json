@@ -1,0 +1,42 @@
+{
+  "appId": "com.squisheee.arena.v1",
+  "productName": "Squish-eee Arena",
+  "copyright": "Made with love and nonsense",
+  "directories": {
+    "output": "release",
+    "buildResources": "build"
+  },
+  "asar": false,
+  "files": [
+    "electron/**/*",
+    "server/**/*",
+    "dist/**/*",
+    "package.json"
+  ],
+  "win": {
+    "target": [
+      {
+        "target": "portable",
+        "arch": [
+          "x64"
+        ]
+      },
+      {
+        "target": "nsis",
+        "arch": [
+          "x64"
+        ]
+      }
+    ]
+  },
+  "portable": {
+    "artifactName": "Squish-eee-Arena-V1-Portable.${ext}"
+  },
+  "nsis": {
+    "oneClick": true,
+    "perMachine": false,
+    "allowToChangeInstallationDirectory": false,
+    "artifactName": "Squish-eee-Arena-V1-Setup.${ext}",
+    "shortcutName": "Squish-eee Arena - Version 1"
+  }
+}
