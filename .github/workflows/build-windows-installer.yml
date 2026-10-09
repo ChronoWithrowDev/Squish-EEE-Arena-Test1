@@ -1,0 +1,38 @@
+name: Build Squish-eee Arena Version 1
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main, master]
+
+permissions:
+  contents: read
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Build Version 1
+        shell: pwsh
+        run: |
+          Set-Location "Squish-eee-Arena-Version-1-Build-Kit"
+          npm install
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          node make-exe.mjs
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
+      - name: Upload installers
+        uses: actions/upload-artifact@v4
+        with:
+          name: Squish-eee-Arena-Version-1-Installers
+          path: Squish-eee-Arena-Version-1-Build-Kit/release/*.exe
+          if-no-files-found: error
+          retention-days: 30
